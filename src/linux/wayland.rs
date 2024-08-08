@@ -26,6 +26,12 @@ impl From<&OutputInfo> for DisplayInfo {
             .unwrap_or(0.);
         let (x, y) = info.logical_position.unwrap_or(info.location);
         let (w, h) = info.logical_size.unwrap_or(info.physical_size);
+        let scale: f64 = match (info.physical_size, info.logical_size) {
+            (physical_size, Some(logical_size)) => {
+                (physical_size.0) as f64 / (logical_size.0 as f64)
+            },
+            _ => 1.0,
+        };
         DisplayInfo {
             id: info.id,
             name: info.name.clone().unwrap_or_default(),
@@ -38,6 +44,7 @@ impl From<&OutputInfo> for DisplayInfo {
             scale_factor,
             frequency,
             is_primary: false,
+            scale
         }
     }
 }

@@ -34,6 +34,7 @@ impl DisplayInfo {
             scale_factor,
             frequency,
             is_primary: monitor_info.primary(),
+            scale: 1.0,
         }
     }
 }
